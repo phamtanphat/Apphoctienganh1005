@@ -2,6 +2,7 @@ package khoapham.ptp.phamtanphat.apphoctienganh1005;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
         mangtuvung.add(new Word(5,"Six","Sáu",true));
 
         wordAdapter = new WordAdapter(mangtuvung);
-
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerViewWords.setLayoutManager(linearLayoutManager);
+        recyclerViewWords.setAdapter(wordAdapter);
 
     }
 }
