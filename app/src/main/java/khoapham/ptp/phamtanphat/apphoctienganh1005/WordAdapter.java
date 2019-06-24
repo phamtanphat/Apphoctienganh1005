@@ -45,6 +45,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.Viewholder>{
                     Toast.makeText(v.getContext(), "Từ khóa không tồn tại", Toast.LENGTH_SHORT).show();
                 }
                 mangword.set(position,new Word(word.getId(),word.getEn(),word.getVn(),!word.isMemorized()));
+                notifyDataSetChanged();
             }
         });
 
