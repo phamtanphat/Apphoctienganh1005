@@ -41,10 +41,22 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.Viewholder>{
         viewholder.btnToggleWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!(position == word.getId())){
+                if (!(word.getId() != -1)){
                     Toast.makeText(v.getContext(), "Từ khóa không tồn tại", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 mangword.set(position,new Word(word.getId(),word.getEn(),word.getVn(),!word.isMemorized()));
+                notifyDataSetChanged();
+            }
+        });
+        viewholder.btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!(word.getId() != -1)){
+                    Toast.makeText(v.getContext(), "Từ khóa không tồn tại", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                mangword.remove(position);
                 notifyDataSetChanged();
             }
         });
