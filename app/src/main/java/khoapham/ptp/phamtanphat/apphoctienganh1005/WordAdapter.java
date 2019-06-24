@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class WordAdapter extends RecyclerView.Adapter<WordAdapter.Viewholder>{
 
@@ -29,13 +31,23 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.Viewholder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Viewholder viewholder, int position) {
-        Word word = mangword.get(position);
+    public void onBindViewHolder(@NonNull Viewholder viewholder, final int position) {
+        final Word word = mangword.get(position);
         viewholder.txtEn.setText(word.getEn());
         viewholder.txtEn.setTextColor(Color.rgb(40,167,69));
         viewholder.txtVn.setText(word.isMemorized() ? "----" : word.getVn());
         viewholder.btnToggleWord.setText(word.isMemorized() ? "Forgot" : "isMemorized");
         viewholder.btnToggleWord.setBackgroundColor(word.isMemorized() ? Color.rgb(40,167,69) : Color.rgb(220,53,69));
+        viewholder.btnToggleWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!(position == word.getId())){
+                    Toast.makeText(v.getContext(), "Từ khóa không tồn tại", Toast.LENGTH_SHORT).show();
+                }
+                mangword.set(position,new Word(word.getId(),word.getEn(),word.getVn(),!word.isMemorized()));
+            }
+        });
+
     }
 
     @Override
@@ -47,6 +59,8 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.Viewholder>{
         }
         //return (mangword!= null) ? mangword.size() : 0;
     }
+
+
 
     class Viewholder extends RecyclerView.ViewHolder{
         TextView txtEn,txtVn;
