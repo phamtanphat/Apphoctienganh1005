@@ -4,8 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -38,6 +41,24 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewWords.setLayoutManager(linearLayoutManager);
         recyclerViewWords.setAdapter(wordAdapter);
+
+        btnAddWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String en = edtEn.getText().toString().trim();
+                String vn = edtVn.getText().toString().trim();
+                if (!(en.length() > 0) || !(vn.length() > 0)){
+                    Toast.makeText(MainActivity.this, "Bạn hãy nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                int id = mangtuvung.get(mangtuvung.size() - 1).getId() + 1;
+                mangtuvung.add(0,new Word(id,en ,vn , false));
+                wordAdapter.notifyDataSetChanged();
+                edtEn.setText("");
+                edtVn.setText("");
+
+            }
+        });
 
     }
 }
